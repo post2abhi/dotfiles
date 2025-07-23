@@ -1,0 +1,3 @@
+% python, poetry, dependency
+# Add dependency
+poetry add '<library_and_version>'

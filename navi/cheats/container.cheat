@@ -1,0 +1,121 @@
+;
+;;; docker ;;;
+;
+% docker, list, running
+# List all running Docker containers
+docker ps
+
+% docker, list, all, stopped
+# List all Docker containers (running and stopped)
+docker ps -a
+
+% docker, stop, kill
+# Stop a running Docker container
+docker stop <container_name_or_id>
+$ container_name_or_id: docker ps --format "{{.Names}}\t{{.ID}}" | fzf --delimiter='\t' --with-nth=1
+
+% docker, remove, delete, stopped
+# Remove one or more stopped Docker containers
+docker rm <container_name_or_id>
+$ container_name_or_id: docker ps -aq --filter "status=exited" | fzf --multi
+
+% docker, image, list, all
+# List all Docker images
+docker images
+
+% docker, cleanup, prune, system
+# Remove all stopped containers, unused networks, dangling images, and build cache
+docker system prune -f
+
+% docker, exec, run, command, inside
+# Execute a command inside a running Docker container
+docker exec -it <container> <command>
+$ container: docker ps --format "{{.Names}}\t{{.ID}}" | fzf --delimiter='\t' --with-nth=1
+
+;
+;;; kubectl ;;;
+;
+% kubectl, get, list, resources
+# List Kubernetes resources
+kubectl get <resource_type>
+$ resource_type: echo -e "pods\ndeployments\nsvc\nservices\nrs\nreplicasets\ndaemons\ndaemonsets\njobs\ncronjobs\nns\nnamespaces\ning\ningresses\ncm\nconfigmaps\nsecrets\npvc\npersistentvolumeclaims\npv\npersistentvolumes\nno\nnodes" | fzf
+
+% kubectl, describe, details, info
+# Describe a Kubernetes resource for detailed information
+kubectl describe <resource_name>
+$ resource_type: echo -e "pods\ndeployments\nsvc\nservices\nrs\nreplicasets\ndaemons\ndaemonsets\njobs\ncronjobs\nns\nnamespaces\ning\ningresses\ncm\nconfigmaps\nsecrets\npvc\npersistentvolumeclaims\npv\npersistentvolumes\nno\nnodes" | fzf
+$ resource_name: kubectl get <resource_type> -o name | fzf
+
+% kubectl, logs, pods, stream
+# Get logs from a Kubernetes pod (stream with -f)
+kubectl logs <pod_name> -f
+$ pod_name: kubectl get pods --field-selector=status.phase=Running -o name | fzf
+
+% kubectl, exec, run, command, inside, pod
+# Execute a command inside a running pod
+kubectl exec -it <pod_name> -- <command>
+$ pod_name: kubectl get pods --field-selector=status.phase=Running -o name | fzf
+
+% kubectl, exec, shell
+# Get a bash shell inside a running pod
+kubectl exec -it <pod_name> -- bash
+$ pod_name: kubectl get pods --field-selector=status.phase=Running -o name | fzf
+
+% kubectl, kubens, namespace
+# List all namespaces, change namespaces
+kubens 
+
+% kubectl, kubectx, context
+# List all context, change context
+kubectx 
+
+% kubectl, pod, port-forward
+# Forward a local port to a port on a specific pod
+kubectl port-forward <pod_name> <local_port>:<pod_port>
+$ pod_name: kubectl get pods --field-selector=status.phase=Running -o name | fzf
+$ pod_port: kubectl get <pod_name> -o yaml |yq e '.spec.containers[].ports[].containerPort' - | fzf
+
+% kubectl, service, port-forward
+# Forward a local port to a port on a service
+kubectl port-forward <svc_name> <local_port>:<svc_port>
+$ svc_name: kubectl get service -o name | fzf
+$ svc_port: kubectl get <svc_name> -o yaml |yq e '.spec.ports[].port' - | fzf
+
+;
+;;; stern log tailing ;;;
+;
+% stern, logs, tail, follow, deployment, resource
+# Tail logs from pods matching a resource name (e.g., deployment, statefulset)
+stern <resource_name>
+
+% stern, logs, tail, follow, pod, specific
+# Tail logs from a specific Kubernetes pod
+stern <pod_name>
+$ pod_name: kubectl get pods --field-selector=status.phase=Running -o name | fzf
+
+% stern, logs, tail, follow, time, since
+# Tail logs from pods since a specific duration (e.g., 5m, 1h)
+stern <resource_name> --since <duration>
+$ duration: echo -e "5m\n10m\n30m\n1h\n24h" | fzf
+
+% stern, logs, tail, follow, container, filter
+# Tail logs from specific containers within pods
+stern <resource_name> -c <container_name>
+$ container_name: kubectl get pods --field-selector=status.phase=Running -o custom-columns=CONTAINER:.spec.containers[*].name --no-headers | tr ' ' '\n' | sort -u | fzf
+
+% stern, logs, tail, follow, all, namespaces
+# Tail logs from pods matching a resource name across all namespaces
+stern <resource_name> --all-namespaces
+
+% stern, logs, tail, follow, filter, grep
+# Tail logs and filter output using a keyword (grep)
+stern <resource_name> | grep "<keyword>"
+
+
+;
+;;; KIND ;;;
+;
+% kind, delete, cluster
+# Delete kind cluster
+kind delete cluster -n <cluster_name>
+$ cluster_name:  kind get clusters| fzf

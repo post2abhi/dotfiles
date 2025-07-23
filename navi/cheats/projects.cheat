@@ -1,0 +1,40 @@
+% pycharm, project
+# Open PyCharm myprojects
+/Users/akumar9/work/vcf/pycharm-projects/open_myprojects
+
+% pycharm, project
+# Open PyCharm CARR
+/Users/akumar9/work/vcf/pycharm-projects/open_carr
+
+% pycharm, project
+# Open PyCharm VAJRA
+/Users/akumar9/work/vcf/pycharm-projects/open_vajra
+
+% pycharm, project
+# Open PyCharm node-cli
+pycharm /Users/akumar9/work/vcf/pycharm-projects/node-cli &> /dev/null &
+
+% idea, project
+# Open IntelliJ gm-vmsp
+idea /Users/akumar9/work/vcf/intellij-projects/gm-vmsp &> /dev/null &
+
+% idea, project
+# Open IntelliJ reverse-proxy
+idea /Users/akumar9/work/vcf/intellij-projects/reverse-proxy &> /dev/null &
+
+% idea, project
+# Open IntelliJ sm-ar
+idea /Users/akumar9/work/vcf/intellij-projects/sm-ar &> /dev/null &
+
+% idea, project
+# Open IntelliJ truststore
+idea /Users/akumar9/work/vcf/intellij-projects/truststore &> /dev/null &
+
+% idea, project
+# Open IntelliJ vmsp-sample-project
+idea /Users/akumar9/work/vcf/abhishek/vmsp-sample-project &> /dev/null &
+
+% vscode, project
+# Open vscode gobuild
+/Users/akumar9/work/vcf/vscode-projects/open_gobuild
+

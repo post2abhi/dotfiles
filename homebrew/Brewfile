@@ -1,10 +1,39 @@
-# Create and view interactive cheat sheets for *nix commands
+tap "filosottile/musl-cross"
 brew "cheat"
-# Mac App Store command-line interface
-brew "mas"
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Microsoft OneNote", id: 784801555
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
+brew "colima", restart_service: :changed
+brew "curl"
+brew "docker-compose"
+brew "fd"
+brew "fzf"
+brew "gnu-tar"
+brew "helm"
+brew "kind"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "mas"  # Mac App Store command-line interface
+brew "navi"
+brew "openjdk@17"
+brew "pyenv"
+brew "ripgrep"
+brew "skaffold"
+brew "stern"
+brew "tilt"
+brew "tree"
+brew "uv"
+brew "wget"
+brew "yq"
+brew "filosottile/musl-cross/musl-cross"
+cask "iterm2"
+cask "multipass"
+cask "stats"
+cask "visual-studio-code"
+mas "Boop", id: 1518425043
+mas "Magnet", id: 441258766
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Xcode", id: 497799835
+vscode "golang.go"
+vscode "ms-python.debugpy"
+vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
+vscode "ms-python.vscode-python-envs"
+vscode "ms-vscode.makefile-tools"

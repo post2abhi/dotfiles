@@ -1,0 +1,3 @@
+% myscript, certificate
+# Generate a self signed certificate
+~/work/bin/generate_selfsigned_cert.sh <hostname> <optional_expiration>

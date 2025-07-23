@@ -1,0 +1,16 @@
+# ~/.config/navi/config.yaml (symlinked from ~/dotfiles/navi/config.yaml)
+
+# --- Cheatsheet Sources ---
+cheats:
+  paths:
+    - ~/.config/navi/cheats
+
+# --- Display Settings ---
+prompt: auto
+info_lines: true
+fuzzy_finder: true
+pager: less
+auto_select_one: false
+auto_execute_one: false
+
+# ... (any custom keybindings you add later) ...

@@ -1,0 +1,9 @@
+#alias usejdk8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
+alias usejdk8='export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home'
+alias usejdk11='export JAVA_HOME=`/usr/libexec/java_home -v 11.0`'
+alias usejdk15='export JAVA_HOME=`/usr/libexec/java_home -v 15.0`'
+alias zshconfig='vi ~/.zshrc'
+alias zshconfiglocal='vi ~/.zshrc.local'
+alias zshreset='exec zsh'
+alias launchmat="/Users/akumar9/Google\ Drive/work/my.wrk/scripts/launchmat.sh"
+alias p10kconfig="p10k configure"

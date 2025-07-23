@@ -1,0 +1,4 @@
+
+% vmsp, create, cluster, kind
+# Create kind cluster
+vmsp bootstrap cluster local --name gm-cluster --disable-gateway

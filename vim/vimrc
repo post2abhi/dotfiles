@@ -1,0 +1,2 @@
+syntax on
+set listchars=tab:→\ ,trail:·,precedes:«,extends:»,eol:¶

@@ -1,0 +1,33 @@
+% lsof, port, listen, process, find
+# Check which process is listening on a specific port
+lsof -i :<port>
+
+% nc, netcat, listener, port
+# Start a port listener
+nc -lk <port>
+
+;
+;;; Change directory
+;
+% cd, directory, change
+# Change to a specific directory
+cd <directory_path>
+$ directory_path: fd --type d --hidden --max-depth 3 | fzf
+
+;
+;;;
+;
+% fd, find
+# Find files and directories matching a pattern
+fd <pattern>
+
+% fd, find, case_insensitive
+# Find files and directories case-insensitively
+fd -i --hidden --glob "<file_name>"
+$ file_name: sh -c 'stty echo; read -p "filename eg: *.java, file?.txt, conf[123].yaml: " FILENAME; echo "$FILENAME"'
+
+% fd, search, text, content, grep, rg, find_text
+# Search in files
+fd --print0 --glob "<file_name>" <directory> | xargs -0 rg "<text_to_search>"
+$ file_name: sh -c 'stty echo; read -p "filename eg: *.java, file?.txt, conf[123].yaml: " FILENAME; echo "$FILENAME"'
+$ directory:(echo "."; fd -t d --hidden --max-depth 3)| sort -n | fzf

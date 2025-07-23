@@ -1,0 +1,77 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Define the directory where your dotfiles repository is cloned.
+DOTFILES_DIR="$HOME/dotfiles"
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set ZSH_CUSTOM to the path where your custom themes/plugins are stored
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+
+# Set name of the theme to load.
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git z direnv)
+plugins=(git z)  # TODO: Enable direnv after installing it
+
+# This line MUST be at the end of your oh-my-zsh configuration.
+source $ZSH/oh-my-zsh.sh
+
+# --- User Configuration ---
+# Your other custom aliases, functions, and settings should come AFTER the oh-my-zsh.sh source line.
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Pyenv initialization (adjust for other version managers like nvm, rbenv if used)
+eval "$(pyenv init -)"
+
+# NAVI widget integration
+# This line loads NAVI's official Zsh widget, which typically includes keybindings.
+eval "$(navi widget zsh)"
+
+# Stern zsh completion
+source <(stern --completion=zsh)
+
+# Source custom aliases and functions 
+if [ -f "$HOME/.aliases" ]; then
+  source "$HOME/.aliases"
+fi
+if [ -f "$HOME/.functions" ]; then
+  source "$HOME/.functions"
+fi
+
+# Environment variables and PATH
+export PYENV_ROOT=/Users/akumar9/.pyenv
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
+
+#export KUBECONFIG=~/.kube/config.linux.vm:~/.kube/myesx.c2
+export KUBECONFIG=~/.kube/config
+
+# Use colima as runtime for docker
+export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
+
+export PATH=$PATH:/usr/local/kubebuilder/bin:/Users/akumar9/work/bin:/Users/akumar9/work/vmw/nsx/bin:"/Applications/IntelliJ IDEA.app/Contents/MacOS/":/Applications/PyCharm.app/Contents/MacOS:
+export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH" # Use gnu-tar instead of bsd-tar(native) on macos to fix docker load issue for images produced by bazel
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/curl/bin:$PATH". # Use openssl based curl instead of the one packaged with macos
+
+# --- Machine-Specific Local Configuration ---
+# This section sources a local configuration file if it exists.
+# This file is NOT committed to the Git repository, allowing for machine-specific
+# aliases, environment variables, and other customizations.
+# Create ~/.zshrc.local on each machine where you need specific settings.
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi

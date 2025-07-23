@@ -1,0 +1,39 @@
+# ~/.gitconfig (symlinked from ~/dotfiles/git/gitconfig)
+
+# --- Global User Settings (Default) ---
+[user]
+    name = Abhishek Kumar
+    email = post2abhi@gmail.com
+    # signingkey = YOUR_DEFAULT_GPG_KEY_ID
+
+# --- Core Settings ---
+[core]
+    editor = vim # Or 'code --wait' for VS Code
+    autocrlf = input # Handles line endings for cross-platform development
+    excludesfile = ~/.gitignore_global # Optional: a global .gitignore file
+
+# --- Aliases ---
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    df = diff
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # Add more aliases here
+
+# --- Other common settings ---
+[init]
+    defaultBranch = main # Or 'master' if you prefer
+
+[color]
+    ui = auto
+
+# --- Conditional Includes (IMPORTANT for machine-specific configs) ---
+# This section tells Git to include other config files based on conditions.
+# The 'path' is relative to the location of this .gitconfig file.
+
+# Example: Include a local-only file for machine-specific overrides.
+# This file (~/.gitconfig.local) will NOT be committed to your dotfiles.
+[include]
+    path = ~/.gitconfig.local

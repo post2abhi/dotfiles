@@ -1,0 +1,116 @@
+% git, clone, repository, project
+# Clone a Git repository
+git clone <repository_url> <destination_directory>
+$ repository_url: echo "Enter repository URL"
+$ destination_directory: echo "."
+
+% git, status, changes
+# Show the status of the working tree
+git status
+
+% git, add, stage, changes
+# Add changes to the staging area
+git add <file_or_directory>
+$ file_or_directory: git status --porcelain | awk '{print $2}' | fzf --multi
+
+% git, commit, changes, message
+# Commit staged changes with a message
+git commit -m "<message>"
+$ message: echo "Enter commit message"
+
+% git, push, changes, remote, branch
+# Push committed changes to a remote repository
+git push <remote_name> <branch_name>
+$ remote_name: git remote | fzf
+$ branch_name: git branch --list | sed 's/^\* //' | fzf
+
+% git, pull, changes, remote, branch
+# Pull changes from a remote repository
+git pull <remote_name> <branch_name>
+$ remote_name: git remote | fzf
+$ branch_name: git branch --list | sed 's/^\* //' | fzf
+
+% git, checkout, switch, branch, move
+# Switch to a different branch
+git checkout <branch_name>
+$ branch_name: git branch --list | sed 's/^\* //' | fzf
+
+% git, branch, list, show
+# List all local branches
+git branch
+
+% git, branch, create, new
+# Create a new branch
+git branch <branch_name>
+
+% git, branch, delete, remove
+# Delete a local branch
+git branch -d <branch_name>
+$ branch_name: git branch --list | sed 's/^\* //' | fzf --multi
+
+% git, log, history, graph, decorate, all
+# Show commit history (graphical, decorated, all branches)
+git log --oneline --graph --decorate --all
+
+% git, log, history, author, filter
+# Show commit history by a specific author
+git log --author="<author_name>"
+$ author_name: git log --all --format='%aN' | sort -u | fzf
+
+% git, log, history, since, before, date, filter
+# Show commit history within a date range
+git log --since="<since_date>" --before="<before_date>"
+$ since_date: echo "e.g., '2 weeks ago', '2023-01-01'"
+$ before_date: echo "e.g., 'yesterday', '2023-12-31'"
+
+% git, log, history, file, path, filter
+# Show commit history affecting a specific file or directory
+git log -- <file_path>
+$ file_path: git ls-tree -r HEAD --name-only | fzf
+
+% git, log, history, message, grep, search
+# Search commit messages for a keyword
+git log --grep="<keyword>"
+$ keyword: echo "Enter keyword to search in commit messages"
+
+% git, log, history, stat, changes
+# Show commit history with file change statistics
+git log --stat
+
+% git, log, history, patch, diff
+# Show commit history with patch output (diff)
+git log -p
+
+;
+;;; gerrit ;;;
+;
+% git, gerrit, fetch, review, change
+# Fetch a specific change from Gerrit for review
+git fetch origin refs/changes/<Change-Id-last-two-digits>/<Change-Number>/<Patchset-Number> && git checkout FETCH_HEAD
+$ Change-Id-last-two-digits: echo "Enter last two digits of Change-Id (e.g., 23 for I1234567890abcdef1234567890abcdef12345678)"
+$ Change-Number: echo "Enter Change Number (e.g., 12345)"
+$ Patchset-Number: echo "Enter Patchset Number (e.g., 1, 2, 3). Leave blank for latest."
+
+% git, gerrit, fetch, review, change, simplified
+# Fetch a specific change from Gerrit using a simpler command (requires Gerrit hook)
+git fetch origin "refs/changes/<Change-Id-last-two-digits>/<Change-Number>/<Patchset-Number>" && git checkout FETCH_HEAD
+; Note: This format is often enabled by a Gerrit commit-msg hook.
+$ Change-Id-last-two-digits: echo "Enter last two digits of Change-Id"
+$ Change-Number: echo "Enter Change Number"
+$ Patchset-Number: echo "Enter Patchset Number. Leave blank for latest."
+
+% git, gerrit, amend, review, feedback
+# Amend the last commit after receiving review feedback
+git commit --amend --no-edit
+; Use your editor to modify the commit message if needed.
+
+% git, gerrit, push, review, submit
+# Push the current commit(s) to Gerrit for review (or re-review after amend)
+git push origin HEAD:refs/for/<branch_name>
+$ branch_name: git branch --show-current
+
+% git, gerrit, push, review, submit, topic
+# Push the current commit(s) to Gerrit with a topic
+git push origin HEAD:refs/for/<branch_name>/<topic_name>
+$ branch_name: git branch --show-current
+$ topic_name: echo "Enter topic name"
