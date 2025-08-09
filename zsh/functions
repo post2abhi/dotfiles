@@ -1,0 +1,55 @@
+# Function to set the terminal background color using OSC 11.
+# Usage: set-term-bg '#RRGGBB'
+set-term-bg() {
+  # Use 'local' to keep the variable inside the function's scope.
+  local COLOR=$1
+
+  # Check if a color argument was provided.
+  if [[ -z "$COLOR" ]]; then
+    # Print an error message to standard error (stderr).
+    echo "Usage: set-term-bg '#RRGGBB'" >&2
+    # Use 'return' with a non-zero status to indicate failure.
+    return 1
+  fi
+
+  # OSC 11 is the escape sequence for changing the background color.
+  printf '\033]11;%s\007' "$COLOR"
+}
+
+ssh() {
+  # This option makes traps local to this function. They are automatically
+  # removed when the function exits, preventing any side effects.
+  setopt LOCAL_TRAPS
+
+  # Define your default background color.
+  local DEFAULT_BG='#000000'
+
+  # Set a trap that will run when this function exits.
+  # There's no need for a separate cleanup function anymore.
+  trap "printf '\033]11;%s\007' '$DEFAULT_BG'" EXIT
+
+  # Execute the real ssh command.
+  command ssh "$@"
+}
+
+# Function to wrap SSH for password authentication with a unique background color
+ssh-pass() {
+  # This makes the trap temporary and local to this function
+  setopt LOCAL_TRAPS
+
+  # --- Define your colors ---
+  # A dark purple to indicate a password prompt is coming
+  local PASSWORD_BG='#002626'
+  # Your terminal's NORMAL background color for cleanup
+  local DEFAULT_BG='#000000'
+
+  # 1. Immediately change the background to the password color
+  printf '\033]11;%s\007' "$PASSWORD_BG"
+
+  # 2. Set a trap to restore the default color when the command exits
+  trap "printf '\033]11;%s\007' '$DEFAULT_BG'" EXIT
+
+  # 3. Execute the real ssh command with the required option and any other
+  #    arguments you provide (like user@hostname)
+  command ssh -o PubkeyAuthentication=no "$@"
+}

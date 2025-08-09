@@ -54,7 +54,7 @@ fi
 
 # Environment variables and PATH
 export PYENV_ROOT=/Users/akumar9/.pyenv
-export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
+export CPPFLAGS="-I$JAVA_HOME/include"
 
 #export KUBECONFIG=~/.kube/config.linux.vm:~/.kube/myesx.c2
 export KUBECONFIG=~/.kube/config
@@ -64,7 +64,7 @@ export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
 
 export PATH=$PATH:/usr/local/kubebuilder/bin:/Users/akumar9/work/bin:/Users/akumar9/work/vmw/nsx/bin:"/Applications/IntelliJ IDEA.app/Contents/MacOS/":/Applications/PyCharm.app/Contents/MacOS:
 export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH" # Use gnu-tar instead of bsd-tar(native) on macos to fix docker load issue for images produced by bazel
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH". # Use openssl based curl instead of the one packaged with macos
 
 # --- Machine-Specific Local Configuration ---
